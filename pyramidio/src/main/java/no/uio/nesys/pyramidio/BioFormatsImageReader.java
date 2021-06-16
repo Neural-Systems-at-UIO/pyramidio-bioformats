@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import org.apache.commons.lang.NotImplementedException;
 
@@ -21,6 +22,9 @@ public class BioFormatsImageReader implements PartialImageReader {
 
 	private BufferedImageReader bufferedImageReader;
 	private ImageReader imageReader;
+	
+	private static final Logger logger = Logger.getLogger(
+			BioFormatsImageReader.class.getName());
 
 	public BioFormatsImageReader(File file) throws FormatException, IOException {
 		imageReader = new ImageReader();
@@ -41,6 +45,7 @@ public class BioFormatsImageReader implements PartialImageReader {
 	@Override
 	public BufferedImage read(Rectangle rectangle) throws IOException {
 		try {
+			logger.info("Reading rectangle: " + rectangle);
 			return bufferedImageReader.openImage(0, rectangle.x, rectangle.y, rectangle.width, rectangle.height);
 		} catch (FormatException e) {
 			throw new IOException(e);

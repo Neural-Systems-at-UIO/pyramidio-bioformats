@@ -5,10 +5,8 @@
       <pattern>%m%n</pattern>
     </encoder>
   </appender>
-  <root level="DEBUG">
+  <root level="ERROR">
     <appender-ref ref="stdout"/>
   </root>
   
-  <logger name="loci.formats.ClassList" level="ERROR" />
-
 </configuration>

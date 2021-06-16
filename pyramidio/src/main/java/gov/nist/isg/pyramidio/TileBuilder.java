@@ -22,6 +22,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveTask;
+import java.util.logging.Logger;
+
 import javax.imageio.ImageIO;
 import org.apache.commons.io.FilenameUtils;
 
@@ -34,6 +36,7 @@ import org.apache.commons.io.FilenameUtils;
  * computed. (A tile at level n is composed of 4 tiles at level n+1).
  *
  * @author Antoine Vandecreme
+ * @modified darwinjob
  */
 class TileBuilder {
 
@@ -50,6 +53,9 @@ class TileBuilder {
 
     private final int originalWidth;
     private final int originalHeight;
+    
+    private static final Logger logger = Logger.getLogger(
+    		TileBuilder.class.getName());
 
     TileBuilder(int tileSize, int overlap, String tileFormat,
             String descriptorExt, PartialImageReader imageReader,
@@ -63,16 +69,21 @@ class TileBuilder {
         originalWidth = imageReader.getWidth();
         originalHeight = imageReader.getHeight();
 
-        String nameWithoutExtension = FilenameUtils.getBaseName(fileName);
+        //@darwinjob
+        //String nameWithoutExtension = FilenameUtils.getBaseName(fileName);
+        String nameWithoutExtension = fileName;
         String descriptorName = nameWithoutExtension + '.' + descriptorExt;
         DziFile dziFile = new DziFile(tileSize, overlap, tileFormat,
                 originalWidth, originalHeight);
         dziFile.write(descriptorName, archiver);
+        logger.info("DZI file created: " + descriptorName);
+        logger.info("Archiver: " + archiver);
 
         int maxDim = Math.max(originalWidth, originalHeight);
         nbLevels = (int) Math.ceil(Math.log(maxDim) / Math.log(2));
 
         imgDir = fileName + "_files";
+        logger.info("Tiles folder: " + imgDir);
     }
 
     void build(int parallelism, float maxImageCachePercentage) {
@@ -256,6 +267,7 @@ class TileBuilder {
                         dir, tileColumn + "_" + tileRow);
                 try {
                     writeImage(result, tileFormat, outputFile, archiver);
+                    logger.info("Tile created: " + outputFile);
                 } catch (IOException ex) {
                     throw new RuntimeException("Cannot write tile at level "
                             + level + " row " + tileRow + " column "

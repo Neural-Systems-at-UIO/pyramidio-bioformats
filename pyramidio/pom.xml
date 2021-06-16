@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>gov.nist.isg</groupId>
 		<artifactId>pyramidio-parent</artifactId>
-		<version>1.1.1-SNAPSHOT</version>
+		<version>1.1.2</version>
 	</parent>
 	<name>${project.groupId}:${project.artifactId}</name>
 	<description>Library to read and write image pyramids.</description>
@@ -15,7 +15,7 @@
 	<packaging>jar</packaging>
 
 	<properties>
-		<bioformats.version>6.4.0</bioformats.version>
+		<bioformats.version>6.6.1</bioformats.version>
 	</properties>
 
 	<repositories>
