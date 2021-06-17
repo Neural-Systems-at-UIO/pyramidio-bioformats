@@ -1,4 +1,20 @@
-# PyramidIO: image pyramid reader/writer tool
+# PyramidIO: image pyramid reader/writer tool.</br>Bio-Formats enhanced version.
+
+This fork features BioFormatsImageReader which provides support for [reading over 100 image formats](https://docs.openmicroscopy.org/bio-formats/latest/supported-formats.html) and potentially converting them to [DZI pyramids](https://en.wikipedia.org/wiki/Deep_Zoom) suitable for using with different viewers, including, but not limited to, [OpenSeadragon](https://openseadragon.github.io) based viewers.
+
+While the reader should work with the all formats supported by Bio-Formats, the preferred, most tested and efficient image input format is tiled TIFF/BigTIFF with LZW or JPEG compression. Please consider converting your images to the mentioned format by using [ImageMagick tool](https://imagemagick.org), the command example:
+```
+magick convert -verbose -define tiff:tile-geometry=256x256 input_image.xxx -compress jpeg -quality 95 output_image.tif
+```
+This will produce 256x256 tiled JPEG (lossy) compressed TIFF file.
+```
+magick convert -verbose -define tiff:tile-geometry=256x256 input_image.xxx -compress lzw output_image.tif
+```
+This will produce 256x256 tiled LZW (lossless) compressed TIFF file.
+
+Alternatively you can try to use [bftools](https://docs.openmicroscopy.org/bio-formats/latest/users/comlinetools/index.html) 
+
+Tip: avoid multipage TIFF files.
 
 ## CLI usage
 
@@ -25,21 +41,22 @@ To get the list of all the options, one can type:
 java -jar pyramidio-cli-[version].jar -h
 ```
 
+Please note that the default pyramid tiles format is the same as the input image. In case of TIFF you want to avoid this. The following command will specify the tiles format:
+```
+java -jar pyramidio-cli-[version].jar -i my-image.tif -tf png -o outputfolder
+```
+This will produce a pyramid with PNG (lossless) tiles.
+
+```
+java -jar pyramidio-cli-[version].jar -i my-image.tif -tf jpg -o outputfolder
+```
+This will produce a pyramid with JPG (lossy) tiles.
+
+## How to view a pyramid
+
+The simplest way is to use [OpenSeadragon JavaScript library](https://openseadragon.github.io). The example index.html file and the pyramid (tiled256_jpg.dzi file and tiled256_jpg_files folder) are here: https://github.com/darwinjob/pyramidio-bioformats/tree/master/test-data Copy these 3 items and open index.html with your browser.
+
 ## Library usage
-
-### Maven dependency
-
-To use PyramidIO as a library, one should setup the maven dependencies like this:
-
-```
-<dependency>
-    <groupId>gov.nist.isg</groupId>
-    <artifactId>pyramidio</artifactId>
-    <version>...</version>
-</dependency>
-```
-
-Add the `tar-archiver` artifact for tar support and `hdfs-archiver` for HDFS support.
 
 ### Write a DZI pyramid
 
@@ -47,7 +64,7 @@ To write a DZI pyramid, one should use the gov.nist.isg.pyramidio.ScalablePyrami
 ```java
 ScalablePyramidBuilder spb = new ScalablePyramidBuilder(tileSize, tileOverlap, tileFormat, "dzi");
 FilesArchiver archiver = new DirectoryArchiver(outputFolder);
-PartialImageReader pir = new BufferedImageReader(imageFile);
+BioFormatsImageReader pir = new BioFormatsImageReader(imageFile);
 spb.buildPyramid(pir, "pyramidName", archiver, parallelism);
 ```
 Currently the available `FilesArchiver`s are:
@@ -59,6 +76,7 @@ Currently the available `FilesArchiver`s are:
 * `S3Archiver`: save files to a folder on a S3 bucket.
 
 As for the `PartialImageReader`s:
+* `BioFormatsImageReader`: read an image using Bio-Formats library.
 * `BufferedImageReader`: read an image from the disk and store it in RAM.
 * `DeepZoomImageReader`: read a DZI pyramid.
 * `MistStitchedImageReader`: read a [MIST](https://github.com/NIST-ISG/MIST) translation vector.
@@ -76,4 +94,4 @@ BufferedImage regionAtZoom0_1 = reader.getSubImage(
 
 ## Disclaimer:
 
-This software was developed at the National Institute of Standards and Technology by employees of the Federal Government in the course of their official duties. Pursuant to title 17 Section 105 of the United States Code this software is not subject to copyright protection and is in the public domain. This software is an experimental system. NIST assumes no responsibility whatsoever for its use by other parties, and makes no guarantees, expressed or implied, about its quality, reliability, or any other characteristic. We would appreciate acknowledgement if the software is used.
+This software is based on https://github.com/usnistgov/pyramidio from the National Institute of Standards and Technology and https://www.openmicroscopy.org/bio-formats/ from The Open Microscopy Environment. First publication  https://www.openmicroscopy.org/community/viewtopic.php?p=17715
