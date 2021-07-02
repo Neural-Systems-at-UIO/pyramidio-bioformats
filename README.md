@@ -52,11 +52,22 @@ java -jar pyramidio-cli-[version].jar -i my-image.tif -tf jpg -o outputfolder
 ```
 This will produce a pyramid with JPG (lossy) tiles.
 
-## How to view a pyramid
+## 🚨 Memory overflow issues 🚨 ##
+
+By default PyramidIO is trying to read and cache the entire image into the memory to achieve the best possible performance. In case of large images it might cause memory overflow issues. There are two types of them: `java.lang.OutOfMemoryError: Java heap space` and `java.lang.RuntimeException: Cannot cache region java.awt.Rectangle`
+Both are usually fixable by using `-icr` parameter:
+```
+java -jar pyramidio-cli-[version].jar -i my-image.tif -icr 0.1 -tf png -o outputfolder
+```
+This means that only 10% of an image will be read/cached negatively affecting the performance.
+
+You can also try to increase the heap size by using standard Java -XmX parameter. While this might increase the performance, it will NOT help in case of `java.lang.RuntimeException: Cannot cache region java.awt.Rectangle` - this is internal Bio-Formats limitation: only 2GB of data can be extracted at one time.
+
+## How to view a pyramid ##
 
 The simplest way is to use [OpenSeadragon JavaScript library](https://openseadragon.github.io). The example index.html file and the pyramid (tiled256_jpg.dzi file and tiled256_jpg_files folder) are here: https://github.com/darwinjob/pyramidio-bioformats/tree/master/test-data Copy these 3 items and open index.html with your browser.
 
-## Library usage
+## Library usage ##
 
 ### Write a DZI pyramid
 
