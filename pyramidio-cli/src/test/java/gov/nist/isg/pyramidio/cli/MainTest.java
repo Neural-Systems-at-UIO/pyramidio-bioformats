@@ -25,8 +25,8 @@ import org.junit.Test;
  */
 public class MainTest {
 
-    private static final String testDataFolder = "../test-data/";
-    private static final String pyramidFilesFolder = "tiled256_jpg_files";
+    private static final String TEST_DATA_FOLDER = "../test-data/";
+    private static final String PYRAMID_FILES_FOLDER = "tiled256_jpg_files";
 
     @Test
     public void testMain() throws IOException {
@@ -35,14 +35,14 @@ public class MainTest {
         	"-tf",
         	"jpg",
             "-i",
-            testDataFolder + "tiled256_jpg.tif",
+            TEST_DATA_FOLDER + "tiled256_jpg.tif",
             "-o",
             tmpDir.toString()
         });
 
         assertDirectoryEquals(
-                new File(testDataFolder, pyramidFilesFolder),
-                new File(tmpDir.toFile(), pyramidFilesFolder),
+                new File(TEST_DATA_FOLDER, PYRAMID_FILES_FOLDER),
+                new File(tmpDir.toFile(), PYRAMID_FILES_FOLDER),
                 "Pyramid files should be generated correctly");
     }
 
