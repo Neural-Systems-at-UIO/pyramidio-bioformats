@@ -103,6 +103,15 @@ BufferedImage regionAtZoom0_1 = reader.getSubImage(
     new Rectangle(x, y, width, height), 0.1);
 ```
 
+Similarly, one could use `DeepZoomImageReaderUrl` class:
+```java
+URL dziUrl = new URL("http://my-image.dzi");
+DeepZoomImageReaderUrl reader = new DeepZoomImageReaderUrl(dziUrl);
+BufferedImage wholeImageZoom0_01 = reader.getWholeImage(0.01);
+BufferedImage regionAtZoom0_1 = reader.getSubImage(
+    new Rectangle(x, y, width, height), 0.1);
+```
+   
 ## Disclaimer:
 
 This software is based on https://github.com/usnistgov/pyramidio from the National Institute of Standards and Technology and https://www.openmicroscopy.org/bio-formats/ from The Open Microscopy Environment. First publication  https://www.openmicroscopy.org/community/viewtopic.php?p=17715
