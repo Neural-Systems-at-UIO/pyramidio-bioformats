@@ -65,7 +65,8 @@ You can also try to increase the heap size by using standard Java -XmX parameter
 
 ## How to view a pyramid ##
 
-The simplest way is to use [OpenSeadragon JavaScript library](https://openseadragon.github.io). The example index.html file and the pyramid (tiled256_jpg.dzi file and tiled256_jpg_files folder) are here: https://github.com/darwinjob/pyramidio-bioformats/tree/master/test-data Copy these 3 items and open index.html with your browser. The demo is avalable here https://darwinjob.github.io/pyramidio-bioformats/test-data/index.html
+The simplest way is to use [OpenSeadragon JavaScript library](https://openseadragon.github.io). The example index.html file and the pyramid (tiled256_jpg.dzi file and tiled256_jpg_files folder) are here: https://github.com/darwinjob/pyramidio-bioformats/tree/master/test-data
+The demo is avalable here https://darwinjob.github.io/pyramidio-bioformats/demo.html
 
 ## Library usage ##
 
