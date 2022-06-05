@@ -131,7 +131,8 @@ class TileBuilder {
         return nbLevels;
     }
 
-    private class TileBuilderTask extends RecursiveTask<BufferedImage> {
+    @SuppressWarnings("serial")
+	private class TileBuilderTask extends RecursiveTask<BufferedImage> {
 
         private final int level;
         private final int tileRow;
@@ -267,7 +268,7 @@ class TileBuilder {
                         dir, tileColumn + "_" + tileRow);
                 try {
                     writeImage(result, tileFormat, outputFile, archiver);
-                    logger.info("Tile created: " + outputFile);
+                    logger.finest("Tile created: " + outputFile);
                 } catch (IOException ex) {
                     throw new RuntimeException("Cannot write tile at level "
                             + level + " row " + tileRow + " column "

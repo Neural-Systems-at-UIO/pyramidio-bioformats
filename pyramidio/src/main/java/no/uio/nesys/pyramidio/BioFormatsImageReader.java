@@ -45,7 +45,7 @@ public class BioFormatsImageReader implements PartialImageReader {
 	@Override
 	public BufferedImage read(Rectangle rectangle) throws IOException {
 		try {
-			logger.info("Reading rectangle: " + rectangle);
+			logger.fine("Reading rectangle: " + rectangle);
 			return bufferedImageReader.openImage(0, rectangle.x, rectangle.y, rectangle.width, rectangle.height);
 		} catch (FormatException e) {
 			throw new IOException(e);

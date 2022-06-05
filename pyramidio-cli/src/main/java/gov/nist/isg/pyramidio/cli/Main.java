@@ -17,6 +17,8 @@ import gov.nist.isg.pyramidio.ScalablePyramidBuilder;
 import no.uio.nesys.pyramidio.BioFormatsImageReader;
 
 import java.io.File;
+import java.util.logging.Logger;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -33,6 +35,8 @@ import org.apache.commons.io.FilenameUtils;
  * @modified darwinjob
  */
 public class Main {
+	
+	private static final Logger logger = Logger.getLogger(Main.class.getName());
 
     public static void main(String[] args) {
         Options options = new Options();
@@ -130,6 +134,7 @@ public class Main {
 
             try {
                 long start = System.currentTimeMillis();
+                logger.info(inputFile + " - is about to start to build a pyramid.");
 
                 try (FilesArchiver archiver = FilesArchiverFactory
                         .createFromURI(outputFolder)) {
@@ -142,14 +147,19 @@ public class Main {
                             cachePercentage);
                 }
                 float duration = (System.currentTimeMillis() - start) / 1000F;
-                System.out.println("Pyramid built in " + duration + "s.");
+                //System.out.println("Pyramid built in " + duration + "s.");
+                logger.info(inputFile + " - pyramid built in " + duration + "s.");
             } catch (Exception ex) {
-                System.err.println("Error while building the pyramid.");
+                //System.err.println("Error while building the pyramid.");
+            	logger.severe(inputFile + " - error while building the pyramid.");
                 ex.printStackTrace();
+                System.exit(-1);
             }
         } catch (ParseException ex) {
-            System.err.println(ex.getMessage());
+            //System.err.println(ex.getMessage());
+            logger.severe(ex.getMessage());
             printHelp(options);
+            System.exit(-1);
         }
 
     }
