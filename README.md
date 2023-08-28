@@ -62,10 +62,11 @@ If that fails for some reason or you aren't satisfied with the performance try t
 ```
 java -jar pyramidio-cli-[version].jar -i my-image.tif -icr 0.1 -tf png -o outputfolder
 ```
-This means that only 10% of an image will be read/cached. 
-The vales are in range [0, 1]: 
-0 - the cache is disabled. The smallest memory footprint. The safest. The slowest. 
-1 - the entire input image is kept in the cache. The fastest. Prone to memory overflow. 
+This means that only 10% of an image will be read/cached.
+
+**The `-icr` values are in range [0, 1]:**<br>
+0 - the cache is disabled. The smallest memory footprint. The safest. The slowest.<br>
+1 - the entire input image is kept in the cache. The fastest. Prone to memory overflow.
 
 You can also try to increase the heap size by using standard Java -XmX parameter. While this might increase the performance, it will NOT help in case of `java.lang.RuntimeException: Cannot cache region java.awt.Rectangle` - this is internal Bio-Formats limitation: only 2GB of data can be extracted at one time.
 
