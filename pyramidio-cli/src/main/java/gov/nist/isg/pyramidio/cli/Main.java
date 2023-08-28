@@ -75,11 +75,13 @@ public class Main {
         options.addOption(parallelismOption);
 
         Option inputCacheRatioOption = new Option("icr", "inputCacheRatio", true,
-                "Ratio of the input image which can be kept in cache "
-                + "at any time. By default, the entire input image is kept "
-                + "in cache (value 1). This is the fastest but consume "
-                + "more memory. Set to 0 to disable the cache (will be slow "
-                + "especially with compressed images such as jpg and png).");
+                "Ratio [0, 1] of the input image which can be kept in cache "
+                + "at any time. By default, the tool will try to guess "
+                + "a \"safe\" value based on the input image dimensions "
+                + "and the memory heap size.\n"
+                + "0 - the cache is disabled. The smallest memory footprint. The safest. The slowest."
+                + "1 - the entire input image is kept in the cache. The fastest. Prone to memory overflow.\n"
+                + "You might want to manually adjust the value to achieve the best performance for your environment.");
         inputCacheRatioOption.setType(PatternOptionBuilder.NUMBER_VALUE);
         options.addOption(inputCacheRatioOption);
 
