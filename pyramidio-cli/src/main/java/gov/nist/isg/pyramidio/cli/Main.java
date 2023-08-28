@@ -79,7 +79,7 @@ public class Main {
                 + "at any time. By default, the tool will try to guess "
                 + "a \"safe\" value based on the input image dimensions "
                 + "and the memory heap size.\n"
-                + "0 - the cache is disabled. The smallest memory footprint. The safest. The slowest."
+                + "0 - the cache is disabled. The smallest memory footprint. The safest. The slowest.\n"
                 + "1 - the entire input image is kept in the cache. The fastest. Prone to memory overflow.\n"
                 + "You might want to manually adjust the value to achieve the best performance for your environment.");
         inputCacheRatioOption.setType(PatternOptionBuilder.NUMBER_VALUE);
