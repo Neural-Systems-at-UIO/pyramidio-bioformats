@@ -72,7 +72,7 @@ You can also try to increase the heap size by using standard Java -XmX parameter
 
 ## 🚨 Corrupted output 🚨 ##
 
-If the input image is not RGB888 there is a chance that the output might be corrupted. To resolve this try to use -rgb parameter. This will force on the fly convertion to RGB888 and the resulting pyramid should be fine.
+If the input image is not RGB888 there is a chance that the output might be corrupted. To resolve this try to use `-rgb` parameter. This will force on the fly convertion to RGB888 and the resulting pyramid should be fine.
 
 ## How to view a pyramid ##
 
