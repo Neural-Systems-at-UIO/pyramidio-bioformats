@@ -70,6 +70,10 @@ This means that only 10% of an image will be read/cached.
 
 You can also try to increase the heap size by using standard Java -XmX parameter. While this might increase the performance, it will NOT help in case of `java.lang.RuntimeException: Cannot cache region java.awt.Rectangle` - this is internal Bio-Formats limitation: only 2GB of data can be extracted at one time.
 
+## 🚨 Corrupted output 🚨 ##
+
+If the input image is not RGB888 there is a chance that the output might be corrupted. To resolve this try to use -rgb parameter. This will force on the fly convertion to RGB888 and the resulting pyramid should be fine.
+
 ## How to view a pyramid ##
 
 The simplest way is to use [OpenSeadragon JavaScript library](https://openseadragon.github.io). The example index.html file and the pyramid (tiled256_jpg.dzi file and tiled256_jpg_files folder) are here: https://github.com/darwinjob/pyramidio-bioformats/tree/master/test-data
