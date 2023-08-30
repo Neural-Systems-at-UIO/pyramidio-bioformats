@@ -74,6 +74,11 @@ You can also try to increase the heap size by using standard Java -XmX parameter
 
 If the input image is not RGB888 there is a chance that the output might be corrupted. To resolve this try to use `-rgb` parameter. This will force on the fly convertion to RGB888 and the resulting pyramid should be fine.
 
+Example:
+```
+java -jar pyramidio-cli-[version].jar -rgb -i my-image.jpg -o outputfolder
+```
+
 ## How to view a pyramid ##
 
 The simplest way is to use [OpenSeadragon JavaScript library](https://openseadragon.github.io). The example index.html file and the pyramid (tiled256_jpg.dzi file and tiled256_jpg_files folder) are here: https://github.com/darwinjob/pyramidio-bioformats/tree/master/test-data
