@@ -303,7 +303,7 @@ class TileBuilder {
             }
 
             return useCache
-                    ? imageReaderCache.read(region)
+                    ? (imageReaderCache != null ? imageReaderCache.read(region) : null)
                     : imageReader.read(region);
         }
     }
